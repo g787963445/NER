@@ -3,7 +3,7 @@ from typing import List
 import numpy as np
 import torch
 from torch import nn
-from getweibozixingid import get_all_word2id,produce_zixing_id_mask
+from getweibozixingid import get_all_word2id,produce_zixing_id_mask,zixingtoid
 
 from torch.nn import functional as F
 
@@ -39,9 +39,9 @@ from torch.nn import functional as F
 #         zixing_embed = F.max_pool1d(zixing_conv, zixing_conv.shape[-1])  # [(bs*sentence_length),pinyin_out_dim,1]
 #         return torch.tensor(zixing_embed.view(bs, sentence_length, self.zixing_out_dim))
 
-
+zixing2id,id2zixing = zixingtoid()
 class GlyphEmbedding(nn.Module):
-    def __init__(self, embedding_size: int, zixing_out_dim: int, zixing_id = get_all_word2id()):
+    def __init__(self, embedding_size: int, zixing_out_dim: int, zixing_id = zixing2id):
         """
             Pinyin Embedding Module
         Args:
