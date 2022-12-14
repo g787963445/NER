@@ -70,7 +70,7 @@ class GlyphEmbedding(nn.Module):
         device = embed.device if embed is not None else embed.device
         bs, sentence_length, zixing_locs, embed_size = embed.shape
         mask0 = produce_zixing_id_mask(zixing_ids)
-        mask1 = torch.tensor(mask0)
+        mask1 = torch.tensor(mask0，device=device)
         mask = torch.unsqueeze(mask1, 2)
         mask = torch.tensor(mask)  # 463,256,1,16
 
